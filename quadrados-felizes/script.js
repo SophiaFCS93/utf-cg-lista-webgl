@@ -81,4 +81,38 @@ gl.attachShader(
 gl.linkProgram(program); //Junta os shaders
 gl.useProgram(program);//Ativa o programa
 
+// -------------------------------  PARTE 4  -------------------------------
+// --------------------------- PROJEÇÃO ORTOGONAL ----------------------------------- 
+//https://fegemo.github.io/utf-cg/classes/webgl-handson/#10 | https://fegemo.github.io/utf-cg/classes/webgl-handson/#14
+/*Uma ideia é a que vimos na aula: x,y ∈ [0, 100]. Outra, talvez melhor¹: x ∈ [0, gl.canvas.width] e y ∈ [gl.canvas.height, 0]. 
+Por ora, mantenha z ∈ [-1, 1].*/
+//Converter para NDC
+function ortho(left, right, bottom, top, near, far) {
+  const tx = -(right + left) / (right - left);
+  const ty = -(top + bottom) / (top - bottom);
+  const tz = -(far + near) / (far - near);
+
+  return new Float32Array([
+    2 / (right - left), 0, 0, 0,
+    0, 2 / (top - bottom), 0, 0,
+    0, 0, -2 / (far - near), 0,
+    tx, ty, tz, 1
+  ]);
+}
+
+const projecao = ortho(
+  0,                    //left
+  gl.canvas.width,      //right
+  gl.canvas.height,     //bottom
+  0,                    //top
+  -1,                   //near
+  1                     //far
+);
+
+//
+const projecaoLocation =  gl.getUniformLocation(program, 'projecao'); 
+gl.uniformMatrix4fv(projecaoLocation, false, projecao);
+
+// -------------------------------  PARTE 5 -------------------------------
+
 
