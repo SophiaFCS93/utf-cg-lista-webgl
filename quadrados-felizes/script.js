@@ -12,13 +12,18 @@ if (!gl) {
 }
 
 //fixar a tela de pintura (viewport) | https://fegemo.github.io/utf-cg/classes/webgl-handson/#22 
-gl.viewport (0, 0, canvas.Width, canvas.height);
+gl.viewport (0, 0, canvas.width, canvas.height);
 
 //define a cor de fundo como cor borracha: branco | https://fegemo.github.io/utf-cg/classes/webgl/#20
 gl.clearColor (1.0, 1.0, 1.0, 1.0);
 
 //limpa o canvas | https://fegemo.github.io/utf-cg/classes/webgl/#31
-gl.clear(gl.COLOR_BUFFER_BIT) 
+//gl.clear(gl.COLOR_BUFFER_BIT) 
+
+
+
+
+
 
 // -------------------------------  PARTE 2  -------------------------------
 
@@ -53,8 +58,10 @@ const fragmentShaderCode = `#version 300 es
   }
 `;
 
+
+
 // -------------------------------  PARTE 3  -------------------------------
-//Criar o programa WebGL: https://fegemo.github.io/utf-cg/classes/webgl/#4 | optei por não fazer toda a separação do slide
+//Criar o programa WebGL e os shaders: https://fegemo.github.io/utf-cg/classes/webgl/#4 | optei por não fazer toda a separação do slide
 //transforma os textos dos shaders em shaders de verdade e os anexa no programa
 const createShader = (type, source) => {
   const shader = gl.createShader(type);
@@ -64,7 +71,7 @@ const createShader = (type, source) => {
 };
 
 //Cria o programa WebGL
-const program = gl.creatProgram();
+const program = gl.createProgram();
 
 //Cria o vertexShader e insere ele no programa
 gl.attachShader (
@@ -75,11 +82,15 @@ gl.attachShader (
 //Cria o fragmentShader e insere ele no programa
 gl.attachShader(
     program,
-    creatShader (gl.FRAGMENT_SHADER, fragmentShaderCode)
+    createShader (gl.FRAGMENT_SHADER, fragmentShaderCode)
 );
 
 gl.linkProgram(program); //Junta os shaders
 gl.useProgram(program);//Ativa o programa
+
+
+
+
 
 // -------------------------------  PARTE 4  -------------------------------
 // --------------------------- PROJEÇÃO ORTOGONAL ----------------------------------- 
@@ -109,10 +120,72 @@ const projecao = ortho(
   1                     //far
 );
 
-//
-const projecaoLocation =  gl.getUniformLocation(program, 'projecao'); 
+//localiza a uniform "projecao" no vertexShader
+const projecaoLocation =
+gl.getUniformLocation(program, 'projecap');
+
+//Envia a matriz mat4 para o vertexShader
 gl.uniformMatrix4fv(projecaoLocation, false, projecao);
 
+
+
+
 // -------------------------------  PARTE 5 -------------------------------
+//Criando um único mini quadradinho centralizado em 0,0 
+//A ideia é replicar esse quadradinho futuramente =)
+/*   
+(-40,-40) -------- (40,-40)
+     |                 |
+     |                 |
+     |      (0,0)      |
+     |                 |
+     |                 |
+(-40,40) ---------- (40,40)
+*/
+const verticesQuadrado = new Float32Array(
+    -40,    -40,
+     40,    -40,
+     40,     40,
+    -40,     40,
+)
+
+//----------------- VAO ---------------------
+//https://fegemo.github.io/utf-cg/classes/webgl/#25
+const vaoQuadrado1 = gl.creatVertexArray ();
+gl.bindVertexArray (vaoQuadrado1); 
+
+
+//----------------- VBO ---------------------
+//https://fegemo.github.io/utf-cg/classes/webgl/#25
+const vboQuadrado1 = gl.creatBuffer ();
+gl.bindBuffer (gl.ARRAY_BUFFER, vboQuadrado1);
+gl.bufferData (gl.ARRAY_BUFFER, verticesQuadrado, gl.STATIC_DRAW);
+
+// Localiza "in vec2 posicao" no VertexShader
+const posicaoLocation = gl.getAttribLocation (program,'posicao');
+
+//https://fegemo.github.io/utf-cg/classes/webgl/#28
+gl.vertexAttribPointer(posicaoLocation, 2, gl.FLOAT, false, 0, 0);
+
+//2 INDICA QUE CADA VERTICE POSSUI DUAS COORDENAS X E Y
+gl.enableVertexAttribArray(posicaoLocation);
+
+
+//------------------- DESCLOCAMENTO -----------------------------
+const deslocamentoLocation = gl.getUniformLocation (program, 'deslocamento');
+gl.uniform2f(deslocamentoLocation, 250, 250); //colocar o quadradinho em 250,250, no centro do canvas 500*500
+
+//----------------------- COR ----------------------------
+const corLocation = gl.getUniformLocation (program, 'cor');
+gl.uniform4f (corLocation, 0.0, 1.0, 0.0, 1.0); //verde
+
+// ---------------- RENDERIZAÇÃO ----------------
+gl.clear (g.COLOR_BUFFER_BIT);
+gl.bindVertexArray (vaoQuadrado1);
+//DESENHA OS 4 VERTICES COMO TRIANGLE_FAN ↓
+gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);
+
+
+
 
 
