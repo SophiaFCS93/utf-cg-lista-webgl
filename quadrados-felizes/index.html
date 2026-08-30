@@ -1,0 +1,45 @@
+<!--Crie uma página Web quadrados-felizes/index.html com um programa em WebGL que desenha 9 quadrados na tela 
+(3 linhas e 3 colunas), cada um de uma cor, usando as cores especificadas na aula webgl-handson.
+
+* Importante: evite repetição de código (Ctrl+C/Ctrl+V). Repare os trechos que se repetem e refatore-os. 
+* Reflita: quais atributos você precisa para representar um vértice neste exercício? E para representar cada objeto (quadrado)?
+* Ao encontrar um padrão, considere propor uma estrutura de dados (em JavaScript, um objeto) que seja capaz de descrever um quadrado.
+* Crie 9 desses objetos. Ao desenhar, itere sobre uma lista deles, por exemplo, ativando seu VAO e definindo sua cor, para então 
+mandar desenhá-lo.
+* Otimizando, se quiser: um quadrado sempre terá quatro vértices. E todos os 9 possuem o mesmo tamanho. 
+Portanto, é possível usar um único VBO/VAO para os vértices do quadrado, bastando definir suas coordenadas. 
+Mas aí como mudar sua posição? Você pode, no vertex shader, ter uma uniform vec2 deslocamento, que conterá um vetor a ser somado à posição
+(x,y) de cada coordenada (antes de multiplicar pela matriz de projeção). Daí, o quadrado do meio, terá esse vetor como (0, 0). 
+E os outros terão valores diferentes.--> 
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadrados Felizes</title>
+
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>  
+</head>
+<!--SOPHIA, PRESTE ATENÇÃO: ABRE <HEAD> E FECHA </HEAD>  | ISSO VAI EVITAR NOVOS ERROS-->
+
+<body> 
+    <h1>Quadrados Felizes</h1>
+    
+    <!--DEFINE O ESPAÇO DE DESENHO | ATENÇÃO: ABRE <CANVAS ....> FECHA E DEPOIS </CANVAS> | ISSO EVITA NOVOS ERROS--> 
+    <canvas
+        id="canvas"
+        width="500" 
+        height="500">
+    </canvas> 
+    
+    <script src="script.js"></script> <!-- O HTML CARREGA O JAVASCRIP -->
+
+
+</body>
+
