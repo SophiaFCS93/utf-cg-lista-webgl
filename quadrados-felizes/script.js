@@ -2,6 +2,7 @@
 // -------------------------------  PARTE 1  -------------------------------  
 // inicializa o WebGL2
 //const canvas = document.querySelector('.example-canvas');
+//teste: cria um quadrado 500*500 em uma tela com fundo branco
 const canvas = document.getElementById ('canvas');
 const gl = canvas.getContext('webgl2');
 
@@ -51,5 +52,33 @@ const fragmentShaderCode = `#version 300 es
     outColor = cor; 
   }
 `;
+
+// -------------------------------  PARTE 3  -------------------------------
+//Criar o programa WebGL: https://fegemo.github.io/utf-cg/classes/webgl/#4 | optei por não fazer toda a separação do slide
+//transforma os textos dos shaders em shaders de verdade e os anexa no programa
+const createShader = (type, source) => {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  return shader;
+};
+
+//Cria o programa WebGL
+const program = gl.creatProgram();
+
+//Cria o vertexShader e insere ele no programa
+gl.attachShader (
+    program,
+    createShader (gl.VERTEX_SHADER, vertexShaderCode)
+);
+
+//Cria o fragmentShader e insere ele no programa
+gl.attachShader(
+    program,
+    creatShader (gl.FRAGMENT_SHADER, fragmentShaderCode)
+);
+
+gl.linkProgram(program); //Junta os shaders
+gl.useProgram(program);//Ativa o programa
 
 
