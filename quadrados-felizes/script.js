@@ -14,8 +14,9 @@ if (!gl) {
 //fixar a tela de pintura (viewport) | https://fegemo.github.io/utf-cg/classes/webgl-handson/#22 
 gl.viewport (0, 0, canvas.width, canvas.height);
 
-//define a cor de fundo como cor borracha: branco | https://fegemo.github.io/utf-cg/classes/webgl/#20
-gl.clearColor (1.0, 1.0, 1.0, 1.0);
+//defini a cor de inicialmente fundo como cor borracha: branco | https://fegemo.github.io/utf-cg/classes/webgl/#20
+//alterei para um cinza claro para poder ver o quadradinho de fundo branco
+gl.clearColor (0.9, 0.9, 0.9, 1.0);
 
 //limpa o canvas | https://fegemo.github.io/utf-cg/classes/webgl/#31
 //gl.clear(gl.COLOR_BUFFER_BIT) 
@@ -147,7 +148,7 @@ const verticesQuadrado = new Float32Array([
      40,    -40,
      40,     40,
     -40,     40,
-])
+]);
 
 //----------------- VAO ---------------------
 //https://fegemo.github.io/utf-cg/classes/webgl/#25
@@ -195,13 +196,14 @@ gl.bindVertexArray(vaoQuadrado1); // seleciona o VAO do quadrado
 
 
 /*PARA PENSAR SENDO QUE DELIMITEI UM CANVAS DE 0 A 500 PARA X E Y
-(-x,y) ------------- (x,-y)
-     |                 |
-     |                 |
-     |      (0,0)      |
-     |                 |
-     |                 |
-(-x,y) ------------ (x,y)
+Sistema de coordenadas escolhido:
+
+(0,0) ---------------------- (500,0)
+  |                              |
+  |                              |
+  |                              |
+  |                              |
+(0,500) ------------------ (500,500)
 */
 
 // AS CORES FORAM ESCOLHIDAS COM BASE NESSE MATERIAL: https://fegemo.github.io/utf-cg/classes/webgl-handson/#valores-rgb-de-algumas-cores
@@ -264,6 +266,3 @@ gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 gl.uniform2f(deslocamentoLocation, 400, 400);
 gl.uniform4f(corLocation, 1.0, 1.0, 1.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-
-
-
