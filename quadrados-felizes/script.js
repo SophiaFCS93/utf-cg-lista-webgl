@@ -204,64 +204,65 @@ gl.bindVertexArray(vaoQuadrado1); // seleciona o VAO do quadrado
 (-x,y) ------------ (x,y)
 */
 
+// AS CORES FORAM ESCOLHIDAS COM BASE NESSE MATERIAL: https://fegemo.github.io/utf-cg/classes/webgl-handson/#valores-rgb-de-algumas-cores
 
 // ---------------- PRIMEIRA LINHA ----------------
 
-// Quadrado 1 - vermelho
+// Quadrado 1 - preto
 gl.uniform2f(deslocamentoLocation, 100, 100);
+gl.uniform4f(corLocation, 0.0, 0.0, 0.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 2 - vermelho
+gl.uniform2f(deslocamentoLocation, 250, 100);
 gl.uniform4f(corLocation, 1.0, 0.0, 0.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
-// Quadrado 2 - verde
-gl.uniform2f(deslocamentoLocation, 250, 100);
-gl.uniform4f(corLocation, 0.0, 1.0, 0.0, 1.0);
-gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-
-
-// Quadrado 3 - azul
+// Quadrado 3 - verde
 gl.uniform2f(deslocamentoLocation, 400, 100);
-gl.uniform4f(corLocation, 0.0, 0.0, 1.0, 1.0);
+gl.uniform4f(corLocation, 0.0, 1.0, 0.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
 // ---------------- SEGUNDA LINHA ----------------
 
-// Quadrado 4 - amarelo
+// Quadrado 4 - azul
 gl.uniform2f(deslocamentoLocation, 100, 250);
+gl.uniform4f(corLocation, 0.0, 0.0, 1.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 5 - amarelo
+gl.uniform2f(deslocamentoLocation, 250, 250);
 gl.uniform4f(corLocation, 1.0, 1.0, 0.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
-// Quadrado 5 - rosa/magenta
-gl.uniform2f(deslocamentoLocation, 250, 250);
-gl.uniform4f(corLocation, 1.0, 0.0, 1.0, 1.0);
-gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-
-
-// Quadrado 6 - ciano
+// Quadrado 6 - magenta
 gl.uniform2f(deslocamentoLocation, 400, 250);
-gl.uniform4f(corLocation, 0.0, 1.0, 1.0, 1.0);
+gl.uniform4f(corLocation, 1.0, 0.0, 1.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
 // ---------------- TERCEIRA LINHA ----------------
 
-// Quadrado 7 - laranja
+// Quadrado 7 - ciano
 gl.uniform2f(deslocamentoLocation, 100, 400);
-gl.uniform4f(corLocation, 1.0, 0.5, 0.0, 1.0);
+gl.uniform4f(corLocation, 0.0, 1.0, 1.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
-// Quadrado 8 - roxo
+// Quadrado 8 - cinza
 gl.uniform2f(deslocamentoLocation, 250, 400);
-gl.uniform4f(corLocation, 0.5, 0.0, 1.0, 1.0);
+gl.uniform4f(corLocation, 0.6, 0.6, 0.6, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
-// Quadrado 9 - cinza
+// Quadrado 9 - branco
 gl.uniform2f(deslocamentoLocation, 400, 400);
-gl.uniform4f(corLocation, 0.5, 0.5, 0.5, 1.0);
+gl.uniform4f(corLocation, 1.0, 1.0, 1.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
