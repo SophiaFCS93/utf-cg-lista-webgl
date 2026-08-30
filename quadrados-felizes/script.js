@@ -122,7 +122,7 @@ const projecao = ortho(
 
 //localiza a uniform "projecao" no vertexShader
 const projecaoLocation =
-gl.getUniformLocation(program, 'projecap');
+gl.getUniformLocation(program, 'projecao');
 
 //Envia a matriz mat4 para o vertexShader
 gl.uniformMatrix4fv(projecaoLocation, false, projecao);
@@ -142,22 +142,22 @@ gl.uniformMatrix4fv(projecaoLocation, false, projecao);
      |                 |
 (-40,40) ---------- (40,40)
 */
-const verticesQuadrado = new Float32Array(
+const verticesQuadrado = new Float32Array([
     -40,    -40,
      40,    -40,
      40,     40,
     -40,     40,
-)
+])
 
 //----------------- VAO ---------------------
 //https://fegemo.github.io/utf-cg/classes/webgl/#25
-const vaoQuadrado1 = gl.creatVertexArray ();
+const vaoQuadrado1 = gl.createVertexArray ();
 gl.bindVertexArray (vaoQuadrado1); 
 
 
 //----------------- VBO ---------------------
 //https://fegemo.github.io/utf-cg/classes/webgl/#25
-const vboQuadrado1 = gl.creatBuffer ();
+const vboQuadrado1 = gl.createBuffer ();
 gl.bindBuffer (gl.ARRAY_BUFFER, vboQuadrado1);
 gl.bufferData (gl.ARRAY_BUFFER, verticesQuadrado, gl.STATIC_DRAW);
 
@@ -180,7 +180,7 @@ const corLocation = gl.getUniformLocation (program, 'cor');
 gl.uniform4f (corLocation, 0.0, 1.0, 0.0, 1.0); //verde
 
 // ---------------- RENDERIZAÇÃO ----------------
-gl.clear (g.COLOR_BUFFER_BIT);
+gl.clear (gl.COLOR_BUFFER_BIT);
 gl.bindVertexArray (vaoQuadrado1);
 //DESENHA OS 4 VERTICES COMO TRIANGLE_FAN ↓
 gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);
