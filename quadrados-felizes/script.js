@@ -173,19 +173,96 @@ gl.enableVertexAttribArray(posicaoLocation);
 
 //------------------- DESCLOCAMENTO -----------------------------
 const deslocamentoLocation = gl.getUniformLocation (program, 'deslocamento');
-gl.uniform2f(deslocamentoLocation, 250, 250); //colocar o quadradinho em 250,250, no centro do canvas 500*500
+//gl.uniform2f(deslocamentoLocation, 250, 250); //colocar o quadradinho em 250,250, no centro do canvas 500*500
 
 //----------------------- COR ----------------------------
 const corLocation = gl.getUniformLocation (program, 'cor');
-gl.uniform4f (corLocation, 0.0, 1.0, 0.0, 1.0); //verde
+//gl.uniform4f (corLocation, 0.0, 1.0, 0.0, 1.0); //verde
 
+/*
 // ---------------- RENDERIZAÇÃO ----------------
 gl.clear (gl.COLOR_BUFFER_BIT);
 gl.bindVertexArray (vaoQuadrado1);
 //DESENHA OS 4 VERTICES COMO TRIANGLE_FAN ↓
-gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);
+gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);*/ 
+
+// --------------------------------- PARTE 6 ---------------------------------------------
+// CRIANDO OS 9 QUADRADOS - 3 LINHAS E 3 COLUNAS CONFORME O ENUNCIADO
+
+// ---------------- RENDERIZAÇÃO ----------------
+gl.clear(gl.COLOR_BUFFER_BIT); // limpa o canvas apenas uma vez
+gl.bindVertexArray(vaoQuadrado1); // seleciona o VAO do quadrado
 
 
+/*PARA PENSAR SENDO QUE DELIMITEI UM CANVAS DE 0 A 500 PARA X E Y
+(-x,y) ------------- (x,-y)
+     |                 |
+     |                 |
+     |      (0,0)      |
+     |                 |
+     |                 |
+(-x,y) ------------ (x,y)
+*/
+
+
+// ---------------- PRIMEIRA LINHA ----------------
+
+// Quadrado 1 - vermelho
+gl.uniform2f(deslocamentoLocation, 100, 100);
+gl.uniform4f(corLocation, 1.0, 0.0, 0.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 2 - verde
+gl.uniform2f(deslocamentoLocation, 250, 100);
+gl.uniform4f(corLocation, 0.0, 1.0, 0.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 3 - azul
+gl.uniform2f(deslocamentoLocation, 400, 100);
+gl.uniform4f(corLocation, 0.0, 0.0, 1.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// ---------------- SEGUNDA LINHA ----------------
+
+// Quadrado 4 - amarelo
+gl.uniform2f(deslocamentoLocation, 100, 250);
+gl.uniform4f(corLocation, 1.0, 1.0, 0.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 5 - rosa/magenta
+gl.uniform2f(deslocamentoLocation, 250, 250);
+gl.uniform4f(corLocation, 1.0, 0.0, 1.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 6 - ciano
+gl.uniform2f(deslocamentoLocation, 400, 250);
+gl.uniform4f(corLocation, 0.0, 1.0, 1.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// ---------------- TERCEIRA LINHA ----------------
+
+// Quadrado 7 - laranja
+gl.uniform2f(deslocamentoLocation, 100, 400);
+gl.uniform4f(corLocation, 1.0, 0.5, 0.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 8 - roxo
+gl.uniform2f(deslocamentoLocation, 250, 400);
+gl.uniform4f(corLocation, 0.5, 0.0, 1.0, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+
+// Quadrado 9 - cinza
+gl.uniform2f(deslocamentoLocation, 400, 400);
+gl.uniform4f(corLocation, 0.5, 0.5, 0.5, 1.0);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
 
