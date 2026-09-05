@@ -2,7 +2,7 @@
 // -------------------------------  PARTE 1  -------------------------------  
 // inicializa o WebGL2
 //const canvas = document.querySelector('.example-canvas');
-//teste: cria um quadrado 500*500 em uma tela com fundo branco
+//teste: cria um CANVAS 500*500 
 const canvas = document.getElementById ('canvas');
 const gl = canvas.getContext('webgl2');
 
@@ -30,7 +30,7 @@ gl.clearColor (0.9, 0.9, 0.9, 1.0);
 
 //------------------------------  VERTEX SHADER  -------------------------------
 //PENSANDO QUE FAREMOS UM QUADRADO, REPLICAREMOS E FUTURAMENTE O DESLOCAREMOS. EX NA AULA
-//in vec2 position é a posição de cada vértice | x,y pois é 2D | https://fegemo.github.io/utf-cg/classes/webgl-handson/#12
+//in vec2 position | posicao representa a posição x,y de cada vértice | https://fegemo.github.io/utf-cg/classes/webgl-handson/#12
 //uniform mat4 é a matriz de projeção ortogonal
 //Projetando os Vértices | Se é uma operação por vértice e envolve multiplicação de matriz
 //DESLOCAMENTO: https://fegemo.github.io/utf-cg/classes/webgl-handson2/#26 | 
@@ -170,7 +170,7 @@ gl.vertexAttribPointer(posicaoLocation, 2, gl.FLOAT, false, 0, 0);
 //2 INDICA QUE CADA VERTICE POSSUI DUAS COORDENAS X E Y
 gl.enableVertexAttribArray(posicaoLocation);
 
-//------------------- DESCLOCAMENTO -----------------------------
+//------------------- DESLOCAMENTO -----------------------------
 const deslocamentoLocation = gl.getUniformLocation (program, 'deslocamento');
 //gl.uniform2f(deslocamentoLocation, 250, 250); //colocar o quadradinho em 250,250, no centro do canvas 500*500
 
@@ -178,38 +178,35 @@ const deslocamentoLocation = gl.getUniformLocation (program, 'deslocamento');
 const corLocation = gl.getUniformLocation (program, 'cor');
 //gl.uniform4f (corLocation, 0.0, 1.0, 0.0, 1.0); //verde
 
-/*
-// ---------------- RENDERIZAÇÃO ----------------
+/* ---------------- RENDERIZAÇÃO ----------------
 gl.clear (gl.COLOR_BUFFER_BIT);
 gl.bindVertexArray (vaoQuadrado1);
 //DESENHA OS 4 VERTICES COMO TRIANGLE_FAN ↓
-gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);*/ 
+gl.drawArrays (gl.TRIANGLE_FAN, 0, 4);*/
 
 
 
-
-
-// --------------------------------- PARTE 6 - PRIMEIRA TENTATIVA ---------------------------------------------
+//*********************************************************************************************************
+//*********************************************************************************************************
+// --------------------------------- PARTE 6 - PRIMEIRA TENTATIVA -----------------------------------------
 // CRIANDO OS 9 QUADRADOS - 3 LINHAS E 3 COLUNAS CONFORME O ENUNCIADO
 
 // ---------------- RENDERIZAÇÃO ----------------
 /*gl.clear(gl.COLOR_BUFFER_BIT); // limpa o canvas apenas uma vez
-gl.bindVertexArray(vaoQuadrado1); // seleciona o VAO do */
+gl.bindVertexArray(vaoQuadrado1); // seleciona o VAO do
 
-
-/*PARA PENSAR SENDO QUE DELIMITEI UM CANVAS DE 0 A 500 PARA X E Y | Sistema de coordenadas escolhido:
+PARA PENSAR SENDO QUE DELIMITEI UM CANVAS DE 0 A 500 PARA X E Y | Sistema de coordenadas escolhido:
 (0,0) ---------------------- (500,0)
   |                              |
   |                              |
   |                              |
   |                              |
 (0,500) ------------------ (500,500)
-*/
+
 
 // AS CORES FORAM ESCOLHIDAS COM BASE NESSE MATERIAL: https://fegemo.github.io/utf-cg/classes/webgl-handson/#valores-rgb-de-algumas-cores
-/*
-// ---------------- PRIMEIRA LINHA ----------------
 
+// ---------------- PRIMEIRA LINHA ----------------
 // Quadrado 1 - preto
 gl.uniform2f(deslocamentoLocation, 100, 100);
 gl.uniform4f(corLocation, 0.0, 0.0, 0.0, 1.0);
@@ -229,7 +226,6 @@ gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
 // ---------------- SEGUNDA LINHA ----------------
-
 // Quadrado 4 - azul
 gl.uniform2f(deslocamentoLocation, 100, 250);
 gl.uniform4f(corLocation, 0.0, 0.0, 1.0, 1.0);
@@ -249,7 +245,6 @@ gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
 // ---------------- TERCEIRA LINHA ----------------
-
 // Quadrado 7 - ciano
 gl.uniform2f(deslocamentoLocation, 100, 400);
 gl.uniform4f(corLocation, 0.0, 1.0, 1.0, 1.0);
@@ -268,12 +263,15 @@ gl.uniform4f(corLocation, 1.0, 1.0, 1.0, 1.0);
 gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
-DEU CERTO MAS NÃO É O QUE O ENUNCIADO PEDE --------- ALTERAR !! */ 
+DEU CERTO MAS NÃO É O QUE O ENUNCIADO PEDE --------- ALTERAR !! 
+A primeira tentativa funcionou 100%, porém repetia o mesmo código para cada quadrado =)
+A segunda tentativa deve utilizar uma lista de objetos e uma iteração, conforme solicitado no enunciado 
+****************************************************************************************************
+****************************************************************************************************/
 
 
 
-
-
+// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 // --------------------------------- PARTE 6 - SEGUNDA TENTATIVA ---------------------------------------------
 /*ENUNCIADO: Crie 9 desses objetos(QUADRADOS). Ao desenhar, itere sobre uma lista deles, por exemplo, ativando seu VAO 
 e definindo sua cor, para então mandar desenhá-lo.*/
@@ -318,11 +316,10 @@ const quadrados = [
 
 // ---------------- RENDERIZAÇÃO ----------------
 gl.clear(gl.COLOR_BUFFER_BIT); // LIMPANDO O CANVAS 
-gl.bindVertexArray(vaoQuadrado1);// DEFININDO AS CONFIGURAÇÕES DE VAOQUADRADO1 PARA OS OUTROS QUADRADOS
+gl.bindVertexArray(vaoQuadrado1);// usando o mesmo VAO em todas as draw calls
 
 //Para cada quadrado dentro do array quadrados, execute esse bloco.
-//PERCORRE TODOS OS OBJETOS DA LISTA
-quadrados.forEach((quadrado) => {
+quadrados.forEach((quadrado) => { //PERCORRE TODOS OS OBJETOS DA LISTA
   // define a posição do quadrado
   gl.uniform2f( deslocamentoLocation, quadrado.x,quadrado.y);
 
@@ -333,3 +330,4 @@ quadrados.forEach((quadrado) => {
   gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 });
+//DEU CERTO NA 2000000º TENTATIIIVAAA!!
